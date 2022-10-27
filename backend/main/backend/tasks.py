@@ -13,22 +13,22 @@ def testing(self, code:str):
     id = str(uuid.uuid4())
     path = os.path.abspath(id)
     os.mkdir(path)
-    filePath = path + "/code.py"
+    filePath = f'{path}/code.py'
     with open(filePath, 'a') as the_file:
         the_file.write(code)
-    pathForShell = '"' + path + '"'
-    command = 'docker run -d -v ' + pathForShell + ':/the/workdir/path backend'
+    pathForShell = f'"{path}"'
+    command = f'docker run -d -v {pathForShell}:/the/workdir/path backend'
     process = subprocess.check_output(command,shell=True)
     process = process.decode("UTF-8").strip()
-    command1 = 'docker ps -a --filter "id=' + process + '"'
+    command1 = f'docker ps -a --filter "id={process}"'
     statusStr = ""
     while "Exited" not in statusStr:
-        # sleep(1)
+        sleep(0.5)
         print("LOOP")
         statusStr = subprocess.check_output(command1,shell=True).decode("UTF-8")
         if "Exited" in statusStr:
             print("YES!")
-            command2 = 'docker logs ' + process 
+            command2 = f'docker logs {process}'
             res = subprocess.check_output(command2,shell=True).decode("UTF-8")
             shutil.rmtree(path)
             return res
