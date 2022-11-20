@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './components/Test.css'
 import './components/Interpreter.css';
 import './components/Content.css'
+import 'antd/dist/antd.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

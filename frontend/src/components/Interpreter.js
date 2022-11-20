@@ -114,7 +114,6 @@ function Interpreter(props) {
           <br />
           <Button className="submitButton" onClick = {handleSubmit} variant="primary">Submit</Button>
           <Example />
-          {/* <p style={{whiteSpace: "pre-line"}}>{output}</p> */}
           <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
         </div>
       );

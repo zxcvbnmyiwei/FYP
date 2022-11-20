@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
-
-# class rangefield(models.Model):
-#     start = models.CharField(max_length=8)
-
-
 class Content(models.Model):
     text = models.TextField()
     code = models.TextField()

@@ -42,13 +42,10 @@ def singleFile(request):
     filePath = path + "/code.py"
     with open(filePath, 'a') as the_file:
         the_file.write(content)
-    # pathForShell = '"' + path + '"'
     pathForShell = f'"{path}"'
-    # command = 'docker run -d -v ' + pathForShell + ':/the/workdir/path backend'
     command = f'docker run -d -v {pathForShell}:/the/workdir/path backend'
     process = subprocess.check_output(command,shell=True)
     process = process.decode("UTF-8").strip()
-    # command1 = 'docker ps -a --filter "id=' + process + '"'
     command1 = f'docker ps -a --filter "id={process}"'
     statusStr = ""
     while "Exited" not in statusStr:
