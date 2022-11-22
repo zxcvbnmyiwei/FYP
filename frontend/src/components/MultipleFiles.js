@@ -6,20 +6,7 @@ import MultipleFileIDE from './MultipleFileIDE';
 
 const MultipleFiles = () => {
     const [activeKey, setActiveKey] = useState("0");
-    const [contentList, setContentList] = useState([]);
-
-    // const onTabChange = (index, data) => {
-    //     setContentList(contentList.map(item => {
-    //         if (item.key === index) {
-    //             return {...item, code : data}
-    //         } 
-    //         else {
-    //             return item
-    //         }
-    //     }))
-    // }
-
-
+    const [currentItem,setCurrentItem] = useState(null)
     const [items, setItems] = useState([
         {
             label: 'main.py',
@@ -43,20 +30,12 @@ const MultipleFiles = () => {
 
     const add = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
-        // const newPanes = [...items];
         const newItem = {
             label: 'New Tab',
             children: <MultipleFileIDE onChange={(data) => onTabChange(newActiveKey,data)}/>,
             code : "",
             key: newActiveKey,
         }
-        // newPanes.push({
-        //     label: 'New Tab',
-        //     children: <MultipleFileIDE onChange={(data) => onTabChange(newActiveKey,data)}/>,
-        //     code : "",
-        //     key: newActiveKey,
-        // });
-        // console.log(newPanes)
         setItems(items => [...items, newItem]);
         setActiveKey(newActiveKey);
     };
@@ -88,17 +67,25 @@ const MultipleFiles = () => {
         }
     };
 
+    const onTabChange = (index, data) => {
+        // const newList = [...items]
+        // newList.filter(item=>item.key ===  index)[0].code = data
+        // console.log(newList)
+        // setItems(newList)
+
+        const curr = {"key": index, "data" : data}
+        setCurrentItem(curr)
+    }
+
 
     useEffect(() => {
-        console.log(items)
-    },[items])
-
-    const onTabChange = (index, data) => {
-        const newList = [...items]
-        newList.filter(item=>item.key ===  index)[0].code = data
-        console.log(newList)
-        setItems(newList)
-    }
+        if (currentItem) {
+            const newList = [...items]
+            newList.filter(item=>item.key ===  currentItem.key)[0].code = currentItem.data
+            setItems(newList)
+            console.log(newList)
+        }
+    },[currentItem])
 
     return (
         <Tabs
@@ -111,3 +98,16 @@ const MultipleFiles = () => {
     );
 };
 export default MultipleFiles;
+
+
+    // const onTabChange = (index, data) => {
+    //     setContentList(contentList.map(item => {
+    //         if (item.key === index) {
+    //             return {...item, code : data}
+    //         } 
+    //         else {
+    //             return item
+    //         }
+    //     }))
+    // }
+

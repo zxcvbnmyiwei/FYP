@@ -10,6 +10,11 @@ import {DisplaySection,DisplayContent} from './components/Topic';
 import {DisplayByTopic,DisplayByContent} from './components/ByTopic'
 import { AttemptQuestion } from './components/Content';
 import MultipleFiles from './components/MultipleFiles';
+import Home from './pages/Home'
+import LoginPage from './pages/LoginPage';
+import  Header  from './components/Header';
+import PrivateRoutes from './utils/PrivateRoutes';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
 
@@ -17,15 +22,21 @@ function App() {
   return (
     <>
       <Router>
+        <AuthProvider>
         <Navbar />
+        <Header />
         <Routes>
-          <Route path = '/' />
-          <Route path = 'topic/:topicId' element = {<DisplayByTopic />}/>
-          <Route path = 'section/:sectionId' element = {<DisplayContent />}/>
-          <Route path = 'content' element = {<DisplayByContent />}/>
-          <Route path = 'content/:contentId' element = {<AttemptQuestion />}/>
-          <Route path = 'test' element = {<MultipleFiles />}/>
+          <Route element={<PrivateRoutes/>}>
+            <Route path = '/' element={<Home />} exact />
+            <Route path = 'topic/:topicId' element = {<DisplayByTopic />}/>
+            <Route path = 'section/:sectionId' element = {<DisplayContent />}/>
+            <Route path = 'content' element = {<DisplayByContent />}/>
+            <Route path = 'content/:contentId' element = {<AttemptQuestion />}/>
+            <Route path = 'test' element = {<MultipleFiles />}/>
+          </Route>
+          <Route path = 'login' element={<LoginPage />} />
         </Routes>
+        </AuthProvider>
       </Router>
     </>
   );

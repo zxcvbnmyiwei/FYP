@@ -30,7 +30,7 @@ function GetSideBarData() {
     const sidebarArrObj  = [
         {
             title: 'Home',
-            path: '/home',
+            path: '/',
             icon: <AiIcons.AiFillHome />,
             cName: 'nav-text'
         },
