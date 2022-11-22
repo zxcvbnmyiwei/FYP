@@ -1,10 +1,11 @@
-import { Tabs } from 'antd';
+import { Button, Tabs, Modal, Form, Input,Checkbox } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import './MultipleFiles.css'
 import MultipleFileIDE from './MultipleFileIDE';
-
+import CollectionCreateForm from './ChangeTabForm';
 
 const MultipleFiles = () => {
+    const [open, setOpen] = useState(false);
     const [activeKey, setActiveKey] = useState("0");
     const [currentItem,setCurrentItem] = useState(null)
     const [items, setItems] = useState([
@@ -22,13 +23,25 @@ const MultipleFiles = () => {
             key: '1',
         },
     ]);
+
+
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+      };
+      const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+      };
+
+
+
     const newTabIndex = useRef(0);
     const onChange = (newActiveKey) => {
         setActiveKey(newActiveKey)
         
     };
 
-    const add = () => {
+    const addTab = () => {
         const newActiveKey = `newTab${newTabIndex.current++}`;
         const newItem = {
             label: 'New Tab',
@@ -39,7 +52,7 @@ const MultipleFiles = () => {
         setItems(items => [...items, newItem]);
         setActiveKey(newActiveKey);
     };
-    const remove = (targetKey) => {
+    const removeTab = (targetKey) => {
         let newActiveKey = activeKey;
         let lastIndex = -1;
         items.forEach((item, i) => {
@@ -61,18 +74,13 @@ const MultipleFiles = () => {
     };
     const onEdit = (targetKey, action) => {
         if (action === 'add') {
-            add();
+            addTab();
         } else {
-            remove(targetKey);
+            removeTab(targetKey);
         }
     };
 
     const onTabChange = (index, data) => {
-        // const newList = [...items]
-        // newList.filter(item=>item.key ===  index)[0].code = data
-        // console.log(newList)
-        // setItems(newList)
-
         const curr = {"key": index, "data" : data}
         setCurrentItem(curr)
     }
@@ -87,7 +95,28 @@ const MultipleFiles = () => {
         }
     },[currentItem])
 
+
+    const handleSubmit = () => {
+        console.log(items)
+    }
+
+    // Changing name of file
+    const onCreate = (values) => {
+        const newList = [...items]
+        const selectedItem = newList.filter(item=>item.label === values.Name)
+        // If user attempts to change the file name to one that is currently used.
+        if (selectedItem.length > 0) {
+            alert("Please input another name that is not used currently!")
+        }
+        else {
+            newList.filter(item=>item.key ===  activeKey)[0].label = values.Name
+        }
+        setItems(newList)
+        setOpen(false);
+      };
+
     return (
+        <div>
         <Tabs
             type="editable-card"
             onChange={onChange}
@@ -95,6 +124,24 @@ const MultipleFiles = () => {
             onEdit={onEdit}
             items={items}
         />
+        <Button type="primary" danger onClick={handleSubmit}>Submit!</Button>
+        <Button
+            type="primary"
+            onClick={() => {
+                setOpen(true);
+            }}>
+        Change File Name
+        </Button>
+        <CollectionCreateForm
+            open={open}
+            onCreate={onCreate}
+            onCancel={() => {
+                setOpen(false);
+            }}
+        />
+        
+        </div>
+
     );
 };
 export default MultipleFiles;
