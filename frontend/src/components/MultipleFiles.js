@@ -3,36 +3,33 @@ import React, { useEffect, useRef, useState } from 'react';
 import './MultipleFiles.css'
 import MultipleFileIDE from './MultipleFileIDE';
 import CollectionCreateForm from './ChangeTabForm';
+import axios from 'axios';
 
 const MultipleFiles = () => {
+    // Intepreter
+    const [output, setOutput] = useState("");
+    const [jobId, setJobId] = useState(null);
+    const [status, setStatus] = useState(null);
+    const [jobDetails, setJobDetails] = useState(null);
+    // others
     const [open, setOpen] = useState(false);
     const [activeKey, setActiveKey] = useState("0");
     const [currentItem,setCurrentItem] = useState(null)
     const [items, setItems] = useState([
         {
-            label: 'main.py',
+            label: 'file1.py',
             children: <MultipleFileIDE onChange={(data) => onTabChange("0",data)}/>,
             code : "",
             key: '0',
             closable: false,
         },
         {
-            label: 'file1.py',
+            label: 'file2.py',
             children: <MultipleFileIDE onChange={(data) => onTabChange("1",data)}/>,
             code : "",
             key: '1',
         },
     ]);
-
-
-
-    const onFinish = (values) => {
-        console.log('Success:', values);
-      };
-      const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-      };
-
 
 
     const newTabIndex = useRef(0);
@@ -68,7 +65,6 @@ const MultipleFiles = () => {
                 newActiveKey = newPanes[0].key;
             }
         }
-        console.log(newPanes);
         setItems(newPanes);
         setActiveKey(newActiveKey);
     };
@@ -91,16 +87,69 @@ const MultipleFiles = () => {
             const newList = [...items]
             newList.filter(item=>item.key ===  currentItem.key)[0].code = currentItem.data
             setItems(newList)
-            console.log(newList)
         }
     },[currentItem])
 
 
-    const handleSubmit = () => {
-        console.log(items)
-    }
+    let pollInterval;
 
-    // Changing name of file
+    const handleSubmit = async () => {
+
+        // create new array instead of sending in items because cannot send a children component in the object
+        const payload = []
+        items.forEach(item=> {
+            if (item.key === activeKey) {
+                payload.push({ "label" : "code.py" , "code" : item.code })
+            } else {
+                payload.push({ "label" : item.label , "code" : item.code })
+            }
+        })
+
+
+        try {
+            setOutput("");
+            setStatus(null);
+            setJobId(null);
+            setJobDetails(null);
+            const { data } = await axios.post("http://localhost:8000/submitMulti/", payload);
+            if (data) {
+            setJobId(data);
+            setStatus("Submitted.");
+    
+            // poll here
+            pollInterval = setInterval(async () => {
+                const { data: statusRes } = await axios.get(
+                "http://localhost:8000/status/" + data
+                );
+                const { status: success, output: job, error } = statusRes;
+                if (success) {
+                const { status: jobStatus, result: jobOutput } = job;
+                setStatus(jobStatus);
+                setJobDetails(job);
+                if (jobStatus === "PENDING") return;
+                setOutput(jobOutput);
+                clearInterval(pollInterval);
+                } else {
+                setOutput(error);
+                setStatus("Bad request");
+                clearInterval(pollInterval);
+                }
+            }, 1000);
+            } else {
+            setOutput("Retry again.");
+            }
+        } catch ({ response }) {
+            if (response) {
+            const errMsg = response.data.err.stderr;
+            setOutput(errMsg);
+            } else {
+            setOutput("Please retry submitting.");
+            }
+        }
+        };
+
+
+    // Changing name of file (Modal + Form component)
     const onCreate = (values) => {
         const newList = [...items]
         const selectedItem = newList.filter(item=>item.label === values.Name)
@@ -114,6 +163,14 @@ const MultipleFiles = () => {
         setItems(newList)
         setOpen(false);
       };
+
+      const onFinish = (values) => {
+        console.log('Success:', values);
+      };
+      const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+      };
+
 
     return (
         <div>

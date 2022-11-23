@@ -16,6 +16,7 @@ router.register('topics', TopicViewSet, basename='topics')
 
 urlpatterns = [
     path('submit/', views.index),
+    path('submitMulti/', views.multiFile),
     path('',include(router.urls)),
     path('status/<uuid:task_id>', views.checkResult),
     path('single/', views.singleFile),

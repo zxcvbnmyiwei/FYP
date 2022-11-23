@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from .models import Content,Topic
-from .tasks import testing
+from .tasks import testing, testingMulti
 from celery.result import AsyncResult
 from rest_framework import viewsets
 from .serializers import ContentSeralizer,TopicSerializer
@@ -15,6 +15,7 @@ from time import sleep
 import os
 import uuid
 import shutil
+
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -36,6 +37,16 @@ def index(request):
     code = request.body.decode("UTF-8")
     print("code: ",code)
     x = testing.delay(code=code) 
+    taskid = json.dumps(x.id)
+    return JsonResponse(json.loads(taskid), status=201, safe=False)
+
+@csrf_exempt
+def multiFile(request):
+    json_data = json.loads(request.body)
+    itemList = []
+    for item in json_data:
+        itemList.append([item['label'],item['code']])
+    x = testingMulti.delay(itemList=itemList) 
     taskid = json.dumps(x.id)
     return JsonResponse(json.loads(taskid), status=201, safe=False)
 

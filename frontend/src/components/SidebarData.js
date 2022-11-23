@@ -35,6 +35,12 @@ function GetSideBarData() {
             cName: 'nav-text'
         },
         {
+          title: 'Multiple File',
+          path: '/test',
+          icon: <IoIcons.IoIosPaper />,
+          cName: 'nav-text'
+        },     
+        {
           title: 'View All Content',
           path: '/content',
           icon: <IoIcons.IoIosPaper />,
