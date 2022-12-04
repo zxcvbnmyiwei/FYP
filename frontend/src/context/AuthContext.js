@@ -21,22 +21,22 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate()
 
-
     let loginUser = async (e) => {
-        e.preventDefault()
-        const payload = JSON.stringify({"username": e.target.username.value , "password": e.target.password.value})
-        let response = await tokenAPI.post("/token/",  payload)
-        console.log(response.data)
-        if (response.status === 200) {
-            setAuthToken(response.data)
-            setUser(jwt_decode(response.data.access))
-            localStorage.setItem("authTokens", JSON.stringify(response.data))
-            navigate("/")
-        }
-        else {
-            alert("Something went wrong!")
+        const payload = JSON.stringify({"username": e.username , "password": e.password})
+        try {
+            let response = await tokenAPI.post("/token/",  payload)
+            console.log(response)
+            if (response.status === 200) {
+                setAuthToken(response.data)
+                setUser(jwt_decode(response.data.access))
+                localStorage.setItem("authTokens", JSON.stringify(response.data))
+                navigate("/")
+            }
+        } catch {
+            alert("Wrong password/user combination")
         }
     }
+
 
     let logoutUser = () => {
         setAuthToken(null)
