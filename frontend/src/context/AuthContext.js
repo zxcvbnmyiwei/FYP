@@ -45,10 +45,6 @@ export const AuthProvider = ({children}) => {
         navigate("/login")
     }
 
-    let dummyFunction = () => {
-        console.log("testing")
-    }
-
     let updateToken = async () => {
         if (authToken) {
             console.log(authToken)
