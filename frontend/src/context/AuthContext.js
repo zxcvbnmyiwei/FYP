@@ -52,7 +52,6 @@ export const AuthProvider = ({children}) => {
             console.log(payload)
             let response = await tokenAPI.post("/token/refresh/",  payload)
             if (response.status === 200) {
-                console.log(response.data)
                 setAuthToken(response.data)
                 setUser(jwt_decode(response.data.access))
                 localStorage.setItem("authTokens", JSON.stringify(response.data))
