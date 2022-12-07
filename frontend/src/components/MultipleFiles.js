@@ -196,22 +196,10 @@ const MultipleFiles = () => {
                 setOpen(false);
             }}
         />
-        
+        <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
         </div>
 
     );
 };
 export default MultipleFiles;
-
-
-    // const onTabChange = (index, data) => {
-    //     setContentList(contentList.map(item => {
-    //         if (item.key === index) {
-    //             return {...item, code : data}
-    //         } 
-    //         else {
-    //             return item
-    //         }
-    //     }))
-    // }
 
