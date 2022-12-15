@@ -87,8 +87,7 @@ const style = {
     display: "flex",
     border: "solid 1px #ddd",
     background: "#f0f0f0",
-    "flex-direction": "column",
-
+    flexDirection: "column",
 };
 
 const IndividualItem = props => {
@@ -105,17 +104,13 @@ const IndividualItem = props => {
         onResize={props.onResize}
         bounds="parent"
     >
-        <div style={{display:"flex", justifyContent: "center", "font-size": "9px", "font-weight": "bold", color: "red"}}>{props.itemtype}</div>
+        <div style={{display:"flex", justifyContent: "center", fontSize: "9px", fontWeight: "bold", color: "red"}}>{props.itemtype}</div>
         <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>{props.text}</div>
         {/* <div style={{display:"flex", alignItems: "center", "word-break":"break-all", justifyContent: "center"}}>{props.text}</div> */}
     </Rnd>
     )
 }
-const stylediv = {
-    width: "700px",
-    height: "500px",
-    border: "2px solid"
-}
+
 
 const TkComp = () => {
     const [dimensions, setDimensions] = useState([])
@@ -229,17 +224,18 @@ const TkComp = () => {
     
 
     return (
-        <div class="main-tk-container">
-        <div class='div-for-add-button'>
+        <>
+        <div className="main-tk-container">
+        <div className='div-for-add-button'>
         <Button onClick={() => handleAddType("Button")} style={{margin: "30px"}}>Click to add Button</Button>
         <Button onClick={() => handleAddType("Label")} style={{margin: "30px"}}>Click to add Label</Button>
         <Button onClick={() => handleAddType("Entry")} style={{margin: "30px"}}>Click to add Entry</Button>
         </div>
-        <div class="div-for-tk-component">
+        <div className="div-for-tk-component">
         <Rnd
         enableResizing={resizeDirections}
         style={stylediv}
-        disableDragging="true"
+        disableDragging={true}
         onResize={(e, direction, ref, delta, position) => handleResizeMain(position,ref)}
         default={{
             x: 0,
@@ -254,7 +250,7 @@ const TkComp = () => {
         }
         </Rnd>
         </div>
-        <div class="div-for-delete">
+        <div className="div-for-delete">
             {
                 dimensions.map((item) => (
                     <>
@@ -268,7 +264,7 @@ const TkComp = () => {
                 ))
             }
         </div>
-        <div class="div-for-generate-code">
+        <div className="div-for-generate-code">
         <Button onClick={generateTk}>Generate Tkinter Code</Button>
         <Modal title="Generated Tkinter Code" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }} closable={false}>
         <div style={{"white-space":"pre-wrap"}}>
@@ -284,6 +280,7 @@ const TkComp = () => {
         </Modal>
         </div>
         </div>
+        </>
     )
 }
 
