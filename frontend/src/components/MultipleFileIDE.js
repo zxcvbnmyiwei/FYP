@@ -19,8 +19,8 @@ const MultipleFileIDE = props => {
         <div className='inner'>
             <CodeMirror
                 theme={dracula}
-                height="300px"
-                width='700px'
+                height = "40vh"
+                width = "50vw"
                 extensions={[python({ jsx: true })]}
                 onChange={onChange}
 

@@ -104,7 +104,7 @@ const IndividualItem = props => {
         onResize={props.onResize}
         bounds="parent"
     >
-        <div style={{display:"flex", justifyContent: "center", fontSize: "9px", fontWeight: "bold", color: "red"}}>{props.itemtype}</div>
+        <div style={{display:"flex", justifyContent: "center", fontSize: "9px", fontWeight: "bold", color: "red"}}>{props.itemtype} [{props.itemindex}]</div>
         <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>{props.text}</div>
         {/* <div style={{display:"flex", alignItems: "center", "word-break":"break-all", justifyContent: "center"}}>{props.text}</div> */}
     </Rnd>
@@ -224,48 +224,39 @@ const TkComp = () => {
     
 
     return (
-        <>
         <div className="main-tk-container">
-        <div className='div-for-add-button'>
-        <Button onClick={() => handleAddType("Button")} style={{margin: "30px"}}>Click to add Button</Button>
-        <Button onClick={() => handleAddType("Label")} style={{margin: "30px"}}>Click to add Label</Button>
-        <Button onClick={() => handleAddType("Entry")} style={{margin: "30px"}}>Click to add Entry</Button>
-        </div>
-        <div className="div-for-tk-component">
-        <Rnd
-        enableResizing={resizeDirections}
-        style={stylediv}
-        disableDragging={true}
-        onResize={(e, direction, ref, delta, position) => handleResizeMain(position,ref)}
-        default={{
-            x: 0,
-            y: 0,
-            width: 700,
-            height: 500
-        }}>
-        {
-            dimensions.map((item) => (
-                <IndividualItem itemtype={item.type} text={item.text} onDragStop={(e, d) => handleDrag(item.index,e,d)} onResize={(e, direction, ref, delta, position) => handleResize(item.index, position, ref)}/>
-            ))
-        }
-        </Rnd>
-        </div>
+        <div className="right-component-div" style={{flexDirection:"column"}}>
         <div className="div-for-delete">
             {
                 dimensions.map((item) => (
-                    <>
-                    <div>Index:{item.index}, x-pos:{item.x}, y-pos:{item.y}, width:{item.width}, height:{item.height}, text:{item.text}</div>
-                    <Button onClick={() => handleDelete(item.index)}> Delete Item </Button>
+                    <div className="content-div-for-info">
+                    <Button style={{padding:"4px 4px"}}type="primary" danger onClick={() => handleDelete(item.index)}>X</Button>
+                    <div>Index:{item.index}
+                    <br />
+                    x:{item.x}
+                    <br />
+                    y:{item.y}
+                    <br />
+                    Width:{item.width}
+                    <br />
+                    Height:{item.height}
+                    <br />
+                    Text:{item.text}</div>
                     <form onSubmit={(e) => handleSubmit(e, item.index)}>
-                        <input type="text" name="itemtext" placeholder="Enter in new name"></input>
-                        <input type="submit"/>
+                        <input type="text" name="itemtext" placeholder="Enter Content"></input>
+                        <input style={{padding: "1px",margin: "2px",background: "White"}}type="submit"/>
                     </form>
-                    </>
+                    </div>
                 ))
             }
         </div>
-        <div className="div-for-generate-code">
-        <Button onClick={generateTk}>Generate Tkinter Code</Button>
+        </div>
+        <div style={{flexDirection:"column"}}>
+        <div className='div-for-add-button'>
+        <Button type="primary" onClick={() => handleAddType("Button")} style={{margin: "10px"}}>Click to add Button</Button>
+        <Button type="primary" onClick={() => handleAddType("Label")} style={{margin: "10px"}}>Click to add Label</Button>
+        <Button type="primary" onClick={() => handleAddType("Entry")} style={{margin: "10px"}}>Click to add Entry</Button>
+        <Button type="primary" style={{ background: "green", borderColor: "black", margin: "10px"}} onClick={generateTk}>Generate Tkinter Code</Button>
         <Modal title="Generated Tkinter Code" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }} closable={false}>
         <div style={{"white-space":"pre-wrap"}}>
             {foundation(containerSize)}
@@ -279,8 +270,27 @@ const TkComp = () => {
         </div>
         </Modal>
         </div>
+        <div className="div-for-tk-component">
+        <Rnd
+        enableResizing={resizeDirections}
+        style={stylediv}
+        disableDragging={true}
+        onResize={(e, direction, ref, delta, position) => handleResizeMain(position,ref)}
+        default={{
+            x: 20,
+            y: 20,
+            width: 700,
+            height: 500
+        }}>
+        {
+            dimensions.map((item) => (
+                <IndividualItem itemindex={item.index} itemtype={item.type} text={item.text} onDragStop={(e, d) => handleDrag(item.index,e,d)} onResize={(e, direction, ref, delta, position) => handleResize(item.index, position, ref)}/>
+            ))
+        }
+        </Rnd>
         </div>
-        </>
+        </div>
+        </div>
     )
 }
 

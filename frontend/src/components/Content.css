@@ -4,3 +4,11 @@
     justify-content: center;
 
 }
+
+.description-header {
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

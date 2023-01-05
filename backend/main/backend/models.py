@@ -6,7 +6,7 @@ class Content(models.Model):
     code = models.TextField()
     output = models.TextField()
     ranges = ArrayField(
-       models.TextField()
+       models.TextField() , default=list, blank=True
    )
 
     def __str__(self):

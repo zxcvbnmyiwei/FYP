@@ -33,9 +33,14 @@ function AttemptQuestion() {
     console.log("content: ", content)
 
     return (
-        <div class="Interpreter">
+        <>
+        <div className="description-header"style={{color: "white"}}>
+            {content.text}
+        </div>
+        <div className="Interpreter">
             <Interpreter code={content.code} ranges={ranges}/>
         </div>
+        </>
     )
 
 }

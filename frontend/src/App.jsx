@@ -21,7 +21,7 @@ function App() {
 
 
   return (
-    <>
+    <div className="mainbackground">
       <Router>
         <AuthProvider>
         <Navbar />
@@ -40,7 +40,7 @@ function App() {
         </Routes>
         </AuthProvider>
       </Router>
-    </>
+    </div>
   );
 }
 

@@ -173,6 +173,7 @@ const MultipleFiles = () => {
 
 
     return (
+        <div className="multifile-main">
         <div>
         <Tabs
             type="editable-card"
@@ -197,6 +198,7 @@ const MultipleFiles = () => {
             }}
         />
         <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
+        </div>
         </div>
 
     );

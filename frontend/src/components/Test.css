@@ -1,3 +1,7 @@
+.modal {
+  text-align:center;
+}
+
 .modal-body {
     max-height: calc(100% - 120px);
     overflow-y: scroll;
@@ -6,9 +10,8 @@
 }
 
 .modal-content {
-    width: 1200px;
     /* height: 600px; */
-    /* width: auto; */
+    width: 70vw;
     height: auto;
     position: absolute;
     top: 50%;
@@ -16,9 +19,9 @@
     transform: translate(-50%, 0%);
     /* margin-top: 300px; */
   }
-
+/* 
   .btn-secondary{
     width: 50px;
     height: 40px;
     font-size: smaller;
-  }
+  } */

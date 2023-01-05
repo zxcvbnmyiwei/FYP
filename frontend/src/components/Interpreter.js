@@ -105,16 +105,19 @@ function Interpreter(props) {
                 value={code}
                 key={props.code}
                 theme={dracula}
-                height = "300px"
-                width = '700px'
+                height = "40vh"
+                width = "50vw"
+                minWidth='600px'
                 extensions={[readOnlyRangesExtension(getReadOnlyRanges), python({ jsx: true })]}
                 onChange={onChange}
 
               />
           <br />
+          <div style={{display:"flex", flexDirection:"row", justifyContent:"center", width:"50vw", minWidth:"500px"}}>
           <Button className="submitButton" onClick = {handleSubmit} variant="primary">Submit</Button>
           <Example />
-          <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
+          </div>
+          <textarea style={{height:"40vh", width:"50vw", minWidth:"600px"}}rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
         </div>
       );
 }
