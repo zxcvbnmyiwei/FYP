@@ -6,7 +6,7 @@ import "./Header.css"
 const Header = () => {
     let {user, logoutUser} = useContext(AuthContext)
   return (
-    <div className="HeaderContainer">
+    <div style={{color:"white"}} className="HeaderContainer">
         {user && <p>Hello {user.username}!</p>}
     </div>
   )

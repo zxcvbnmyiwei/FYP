@@ -38,7 +38,7 @@ function AttemptQuestion() {
             {content.text}
         </div>
         <div className="Interpreter">
-            <Interpreter code={content.code} ranges={ranges}/>
+            <Interpreter id={content.id} code={content.code} ranges={ranges} output={content.output}/>
         </div>
         </>
     )

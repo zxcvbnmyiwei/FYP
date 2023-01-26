@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-from .models import Content,Topic
+from .models import Content,Topic,Profile
 from .tasks import testing, testingMulti
 from celery.result import AsyncResult
 from rest_framework import viewsets
@@ -15,6 +15,8 @@ from time import sleep
 import os
 import uuid
 import shutil
+from django.contrib.auth.models import User
+
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -68,7 +70,7 @@ def singleFile(request):
     with open(filePath, 'a') as the_file:
         the_file.write(content)
     pathForShell = f'"{path}"'
-    command = f'docker run -d -v {pathForShell}:/the/workdir/path backend'
+    command = f'docker run -d -v {pathForShell}:/the/workdir/path newbackend'
     process = subprocess.check_output(command,shell=True)
     process = process.decode("UTF-8").strip()
     command1 = f'docker ps -a --filter "id={process}"'
@@ -104,7 +106,7 @@ def multipleFile(request):
         with open(filePath, 'a') as the_file:
             the_file.write(i[1])
     pathForShell = '"' + path + '"'
-    command = 'docker run -d -v ' + pathForShell + ':/the/workdir/path backend'
+    command = 'docker run -d -v ' + pathForShell + ':/the/workdir/path newbackend'
     process = subprocess.check_output(command,shell=True)
     process = process.decode("UTF-8").strip()
     command1 = 'docker ps -a --filter "id=' + process + '"'
@@ -135,3 +137,29 @@ class TopicViewSet(viewsets.ModelViewSet):
         topic = Topic.objects.all()
         return topic
 
+def profile_list(request, username):
+    userid = User.objects.get(username=username).id
+    profiles = Profile.objects.get(user_id=userid)
+    print(profiles)
+    # newCompleted = profiles.completed
+    # newCompleted.append(10)
+    # profiles.completed = newCompleted
+    # profiles.save()
+
+    return JsonResponse(data= json.loads(str(profiles.completed)), status=201, safe=False)
+
+
+@csrf_exempt
+def appendCompleted(request):
+    json_data = json.loads(request.body)
+    print("username: ", json_data["username"])
+    print("contentid: ", json_data["contentid"])
+    userid = User.objects.get(username=json_data["username"]).id
+    profiles = Profile.objects.get(user_id=userid)
+    newCompleted = profiles.completed
+    print("before: ", profiles.completed)
+    newCompleted.append(json_data["contentid"])
+    profiles.completed = newCompleted
+    print("after: ", profiles.completed)
+    profiles.save()
+    return HttpResponse(status = 201)

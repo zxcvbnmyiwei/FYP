@@ -3,7 +3,7 @@ from tabnanny import check
 from django.urls import path, include
 
 from . import views
-from .views import ContentViewSet,Topic, TopicViewSet,checkResult,MyTokenObtainPairView
+from .views import ContentViewSet,Topic, TopicViewSet,checkResult,MyTokenObtainPairView,profile_list,appendCompleted
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -23,4 +23,6 @@ urlpatterns = [
     path('multiple/', views.multipleFile),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('profile/<str:username>', views.profile_list),
+    path('completed/', views.appendCompleted),
 ]

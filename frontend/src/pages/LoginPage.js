@@ -19,6 +19,8 @@
 import AuthContext from '../context/AuthContext'
 import React, {useContext} from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
+import "./LoginPage.css"
+
 const LoginForm = () => {
   let {loginUser} = useContext(AuthContext)
   const onFinish = (values) => {
@@ -28,7 +30,8 @@ const LoginForm = () => {
     console.log('Failed:', errorInfo);
   };
   return (
-    <Form
+    <div style={{display:"flex",  margin:"20px"}}>
+    <Form style={{display:"flex", flexDirection:"column",width: "60vw", justifyContent:"center"}}
       name="basic"
       labelCol={{
         span: 8,
@@ -43,7 +46,7 @@ const LoginForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
+      <Form.Item 
         label="Username"
         name="username"
         rules={[
@@ -70,17 +73,6 @@ const LoginForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item
         wrapperCol={{
           offset: 8,
           span: 16,
@@ -91,6 +83,7 @@ const LoginForm = () => {
         </Button>
       </Form.Item>
     </Form>
+    </div>
   );
 };
 export default LoginForm;
