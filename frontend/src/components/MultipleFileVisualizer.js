@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MyComp from './pyComponent';
-// import './Test.css'
 import axios from 'axios';
+import { Button } from 'antd';
 
 
-function Example(props) {
+function MultipleFileVisualizer(props) {
   const [show, setShow] = useState(false);
   const [output, setOutput] = useState(null);
   const [jobId, setJobId] = useState(null);
@@ -19,17 +18,27 @@ function Example(props) {
 
     let pollInterval;
     
-    let final = 
+    let mainCode = 
 `
 import json
 from pytutor import generate_trace, server
 
 modules = {}
 setup_code = ""
-trace = generate_trace.run_logger(${JSON.stringify(props.code)} , setup_code)
+trace = generate_trace.run_logger(${JSON.stringify(props.items.find(item => item.key === props.activeKey).code)} , setup_code)
 
 print(trace)
 `
+    
+    const payload = []
+    props.items.forEach(item=> {
+        if (item.key === props.activeKey) {
+            payload.push({ "label" : "code.py" , "code" : mainCode })
+        } else {
+            payload.push({ "label" : item.label , "code" : item.code })
+        }
+    })
+
 
 
     try {
@@ -37,8 +46,8 @@ print(trace)
       setStatus(null);
       setJobId(null);
       setJobDetails(null);
-      console.log("code: ", final)
-      const { data } = await axios.post("http://localhost:8000/submit/", final);
+      console.log("code: ", payload)
+      const { data } = await axios.post("http://localhost:8000/submitMulti/", payload);
       if (data) {
         setJobId(data);
         setStatus("Submitted.");
@@ -79,13 +88,12 @@ print(trace)
         setOutput("Please retry submitting.");
       }
     }
-    console.log(final)
     setShow(true);
   }
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button type="primary" style={{background: "green", margin: "10px"}}onClick={handleShow}> 
             Visualize
       </Button>
 
@@ -111,4 +119,4 @@ print(trace)
   );
 }
 
-export default Example;
+export default MultipleFileVisualizer;

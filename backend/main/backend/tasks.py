@@ -10,6 +10,7 @@ import contextlib
 
 @shared_task(bind=True)
 def testing(self, code:str):
+    print(code)
     id = str(uuid.uuid4())
     path = os.path.abspath(id)
     os.mkdir(path)
@@ -26,10 +27,11 @@ def testing(self, code:str):
         sleep(0.5)
         print("LOOP")
         statusStr = subprocess.check_output(command1,shell=True).decode("UTF-8")
+        print(statusStr)
         if "Exited" in statusStr:
             print("YES!")
             command2 = f'docker logs {process}'
-            res = subprocess.check_output(command2,shell=True).decode("UTF-8")
+            res = subprocess.check_output(command2,shell=True, stderr=subprocess.STDOUT).decode("UTF-8")
             shutil.rmtree(path)
             return res
         

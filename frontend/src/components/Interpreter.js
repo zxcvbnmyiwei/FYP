@@ -15,8 +15,7 @@ function Interpreter(props) {
   const [jobId, setJobId] = useState(null);
   const [status, setStatus] = useState(null);
   const [jobDetails, setJobDetails] = useState(null);
-  const [language, setLanguage] = useState("py");
-  // const [isVisualizeShown, setVisualizeShown] = useState(false);
+
   let {user} = useContext(AuthContext)
   // rerender intrepreter if there is a change in props.code
   useEffect(() => {
@@ -55,7 +54,7 @@ function Interpreter(props) {
             if (jobStatus === "PENDING") return;
             console.log(jobOutput.length)
             let finalJobOutput = jobOutput.replace(/\n+$/, "") // get rid of the \n at the end causing the output to have an extra space at the end
-            setOutput(finalJobOutput);
+            setOutput(finalJobOutput)
             if (finalJobOutput === props.output) {
               console.log("correct")
               let itemData = {}
@@ -95,7 +94,7 @@ function Interpreter(props) {
 
   const getReadOnlyRanges = (targetState) => {
     var allContentRanges = [];
-    console.log('print: ', props.ranges)
+    // console.log('print: ', props.ranges)
     const contentRangesDetails = props.ranges;
     Object.entries(contentRangesDetails).map(([key, value]) => {
       var contentRanges = {};
@@ -129,7 +128,7 @@ function Interpreter(props) {
       <br />
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", width: "50vw", minWidth: "500px" }}>
         <Button className="submitButton" onClick={handleSubmit} variant="primary">Submit</Button>
-        <Example />
+        <Example code={code}/>
       </div>
       <textarea style={{ height: "40vh", width: "50vw", minWidth: "600px" }} rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
     </div>

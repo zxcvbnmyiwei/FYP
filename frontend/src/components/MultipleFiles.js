@@ -4,6 +4,8 @@ import './MultipleFiles.css'
 import MultipleFileIDE from './MultipleFileIDE';
 import CollectionCreateForm from './ChangeTabForm';
 import axios from 'axios';
+import MyComp from './pyComponent';
+import MultipleFileVisualizer from './MultipleFileVisualizer';
 
 const MultipleFiles = () => {
     // Intepreter
@@ -12,6 +14,7 @@ const MultipleFiles = () => {
     const [status, setStatus] = useState(null);
     const [jobDetails, setJobDetails] = useState(null);
     // others
+    const [currentCode,setCurrentCode] = useState("")
     const [open, setOpen] = useState(false);
     const [activeKey, setActiveKey] = useState("0");
     const [currentItem,setCurrentItem] = useState(null)
@@ -197,6 +200,7 @@ const MultipleFiles = () => {
                 setOpen(false);
             }}
         />
+        <MultipleFileVisualizer activeKey={activeKey} items={items}/>
         <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
         </div>
         </div>

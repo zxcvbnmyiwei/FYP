@@ -3,7 +3,7 @@ from tabnanny import check
 from django.urls import path, include
 
 from . import views
-from .views import ContentViewSet,Topic, TopicViewSet,checkResult,MyTokenObtainPairView,profile_list,appendCompleted
+from .views import ContentViewSet,Topic, TopicViewSet,checkResult,MyTokenObtainPairView,profile_list,appendCompleted,UserViewSet
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -13,6 +13,7 @@ from rest_framework_simplejwt.views import (
 router = DefaultRouter()
 router.register('contents', ContentViewSet, basename='contents')
 router.register('topics', TopicViewSet, basename='topics')
+router.register('users', UserViewSet)
 
 urlpatterns = [
     path('submit/', views.index),

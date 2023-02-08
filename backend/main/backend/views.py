@@ -4,7 +4,7 @@ from .models import Content,Topic,Profile
 from .tasks import testing, testingMulti
 from celery.result import AsyncResult
 from rest_framework import viewsets
-from .serializers import ContentSeralizer,TopicSerializer
+from .serializers import ContentSeralizer,TopicSerializer,UserSerializer
 from rest_framework import mixins
 from django.http import JsonResponse
 from celery.result import AsyncResult
@@ -163,3 +163,7 @@ def appendCompleted(request):
     print("after: ", profiles.completed)
     profiles.save()
     return HttpResponse(status = 201)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
