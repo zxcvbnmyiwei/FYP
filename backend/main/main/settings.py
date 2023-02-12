@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,15 +152,19 @@ WSGI_APPLICATION = 'main.wsgi.application'
 #     }
 # }
 
+# DATABASES={
+#    'default':{
+#       'ENGINE':'django.db.backends.postgresql_psycopg2',
+#       'NAME':'FYPDB',
+#       'USER':'postgres',
+#       'PASSWORD':'123123',
+#       'HOST':'localhost',
+#       'PORT':'5432',
+#    }
+# }
+
 DATABASES={
-   'default':{
-      'ENGINE':'django.db.backends.postgresql_psycopg2',
-      'NAME':'FYPDB',
-      'USER':'postgres',
-      'PASSWORD':'123123',
-      'HOST':'localhost',
-      'PORT':'5432',
-   }
+   'default': dj_database_url.parse("postgres://herokudb_user:hdXN35Ik8TfBb58SvXrXobOENaf4bhJ3@dpg-cfjile1a6gductiu4nng-a.singapore-postgres.render.com/herokudb")
 }
 
 # Password validation
@@ -197,7 +203,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'rediss://red-cfjkqn1a6gductj6dgp0:3NMPDyIVW3sJJUgPHhWL6YWlQlXO9bPo@singapore-redis.render.com:6379'
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
