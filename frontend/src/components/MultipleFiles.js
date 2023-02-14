@@ -114,7 +114,7 @@ const MultipleFiles = () => {
             setStatus(null);
             setJobId(null);
             setJobDetails(null);
-            const { data } = await axios.post("http://localhost:8000/submitMulti/", payload);
+            const { data } = await axios.post("https://cyiwei.online/submitMulti/", payload);
             if (data) {
             setJobId(data);
             setStatus("Submitted.");
@@ -122,7 +122,7 @@ const MultipleFiles = () => {
             // poll here
             pollInterval = setInterval(async () => {
                 const { data: statusRes } = await axios.get(
-                "http://localhost:8000/status/" + data
+                "https://cyiwei.online/status/" + data
                 );
                 const { status: success, output: job, error } = statusRes;
                 if (success) {
@@ -185,13 +185,16 @@ const MultipleFiles = () => {
             onEdit={onEdit}
             items={items}
         />
-        <Button type="primary" danger onClick={handleSubmit}>Submit!</Button>
+        <div style={{display:"flex"}}>
+        <Button style={{flexDirection:"row",height:"4vh", width:"10vw", marginRight:"10px", fontSize: "calc(10px + 0.2vw)", minHeight: "39px", minWidth: "92px", }} type="primary" danger onClick={handleSubmit}>Submit!</Button>
         <Button
-            type="primary"
+            type="primary"  
             onClick={() => {
                 setOpen(true);
-            }}>
-        Change File Name
+            }}
+            style={{flexDirection:"row",height:"4vh", width:"10vw", marginRight:"10px" , fontSize:"calc(10px + 0.2vw)",minHeight: "39px", minWidth: "92px"}}
+            >
+        Edit File Name
         </Button>
         <CollectionCreateForm
             open={open}
@@ -200,7 +203,8 @@ const MultipleFiles = () => {
                 setOpen(false);
             }}
         />
-        <MultipleFileVisualizer activeKey={activeKey} items={items}/>
+        <MultipleFileVisualizer style={{flexDirection:"row"}} activeKey={activeKey} items={items}/>
+        </div>
         <textarea rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
         </div>
         </div>

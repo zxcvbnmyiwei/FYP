@@ -12,7 +12,7 @@ function AttemptQuestion() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const {data} = await axios.get("http://localhost:8000/contents/" + contentId + "/");
+            const {data} = await axios.get("https://cyiwei.online/contents/" + contentId + "/");
             console.log("data: ", data)
             setContent(data);
 

@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
     let [loading,setLoading] = useState(true)
 
     const tokenAPI = axios.create({
-        baseURL:"http://127.0.0.1:8000",
+        baseURL:"https://cyiwei.online/",
         headers: {
             "Content-Type": "application/json",
         },

@@ -38,14 +38,14 @@ print(trace)
       setJobId(null);
       setJobDetails(null);
       console.log("code: ", final)
-      const { data } = await axios.post("http://localhost:8000/submit/", final);
+      const { data } = await axios.post("https://cyiwei.online/submit/", final);
       if (data) {
         setJobId(data);
         setStatus("Submitted.");
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            "http://localhost:8000/status/" + data
+            "https://cyiwei.online/status/" + data
           );
           console.log(statusRes)
           const { status: success, output: job, error } = statusRes;

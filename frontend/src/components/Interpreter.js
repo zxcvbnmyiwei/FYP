@@ -35,14 +35,14 @@ function Interpreter(props) {
       setJobId(null);
       setJobDetails(null);
       console.log("code: ", code)
-      const { data } = await axios.post("http://localhost:8000/submit/", code);
+      const { data } = await axios.post("https://cyiwei.online/submit/", code);
       if (data) {
         setJobId(data);
         setStatus("Submitted.");
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            "http://localhost:8000/status/" + data
+            "https://cyiwei.online/status/" + data
           );
           console.log(statusRes)
           const { status: success, output: job, error } = statusRes;
@@ -60,7 +60,7 @@ function Interpreter(props) {
               let itemData = {}
               itemData.username = user.username
               itemData.contentid = props.id
-              axios.post("http://localhost:8000/completed/", itemData).then(() => console.log("Success")).catch(error => {
+              axios.post("https://cyiwei.online/completed/", itemData).then(() => console.log("Success")).catch(error => {
                 console.log(error.response.data.error)
              })
             }

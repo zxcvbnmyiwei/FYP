@@ -233,15 +233,15 @@ const TkComp = () => {
                     <Button style={{padding:"4px 4px"}}type="primary" danger onClick={() => handleDelete(item.index)}>X</Button>
                     <div>Index:{item.index}
                     <br />
-                    x:{item.x}
+                     X-pos: {item.x}
                     <br />
-                    y:{item.y}
+                     Y-pos: {item.y}
                     <br />
-                    Width:{item.width}
+                     Width: {item.width}
                     <br />
-                    Height:{item.height}
+                     Height: {item.height}
                     <br />
-                    Text:{item.text}</div>
+                     Text: {item.text}</div>
                     <form onSubmit={(e) => handleSubmit(e, item.index)}>
                         <input type="text" name="itemtext" placeholder="Enter Content"></input>
                         <input style={{padding: "1px",margin: "2px",background: "White"}}type="submit"/>
@@ -252,11 +252,11 @@ const TkComp = () => {
         </div>
         </div>
         <div style={{flexDirection:"column"}}>
-        <div className='div-for-add-button'>
-        <Button type="primary" onClick={() => handleAddType("Button")} style={{margin: "10px"}}>Click to add Button</Button>
-        <Button type="primary" onClick={() => handleAddType("Label")} style={{margin: "10px"}}>Click to add Label</Button>
-        <Button type="primary" onClick={() => handleAddType("Entry")} style={{margin: "10px"}}>Click to add Entry</Button>
-        <Button type="primary" style={{ background: "green", borderColor: "black", margin: "10px"}} onClick={generateTk}>Generate Tkinter Code</Button>
+        <div className='div-for-add-button' style={{display:"flex"}}>
+        <Button type="primary" onClick={() => handleAddType("Button")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Button</Button>
+        <Button type="primary" onClick={() => handleAddType("Label")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Label</Button>
+        <Button type="primary" onClick={() => handleAddType("Entry")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Entry</Button>
+        <Button type="primary" style={{ background: "green", borderColor: "black", flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px",}} onClick={generateTk}>Generate Code</Button>
         <Modal title="Generated Tkinter Code" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }} closable={false}>
         <div style={{"white-space":"pre-wrap"}}>
             {foundation(containerSize)}

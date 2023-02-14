@@ -19,7 +19,7 @@ function DisplayByTopic() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await axios.get("http://localhost:8000/topics/" + topicId + "/");
+            const { data } = await axios.get("https://cyiwei.online/topics/" + topicId + "/");
             console.log("data: ", data)
             setContents(data.content);
         }
@@ -93,11 +93,11 @@ function DisplayByContent() {
     useEffect(() => {
         let completed = []
         const fetchContent = async () => {
-            const completedInfo = await axios.get(`http://localhost:8000/profile/${user.username}`);
+            const completedInfo = await axios.get(`https://cyiwei.online/profile/${user.username}`);
             completed = Object.values(completedInfo.data)
             console.log("completed: ", completed)
             setCompletedQn(completed)
-            const { data } = await axios.get("http://localhost:8000/contents/");
+            const { data } = await axios.get("https://cyiwei.online/contents/");
             setAllQuestions(data)
             let res = data.filter(item => !completed.includes(item.id));
             console.log("res: ", res)

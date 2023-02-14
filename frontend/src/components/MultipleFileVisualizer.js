@@ -47,14 +47,14 @@ print(trace)
       setJobId(null);
       setJobDetails(null);
       console.log("code: ", payload)
-      const { data } = await axios.post("http://localhost:8000/submitMulti/", payload);
+      const { data } = await axios.post("https://cyiwei.online/submitMulti/", payload);
       if (data) {
         setJobId(data);
         setStatus("Submitted.");
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            "http://localhost:8000/status/" + data
+            "https://cyiwei.online/status/" + data
           );
           console.log(statusRes)
           const { status: success, output: job, error } = statusRes;
@@ -93,7 +93,7 @@ print(trace)
 
   return (
     <>
-      <Button type="primary" style={{background: "green", margin: "10px"}}onClick={handleShow}> 
+      <Button type="primary" style={{background: "green" , height:"4vh", width:"10vw", fontSize:"0.9vw", minHeight: "39px", minWidth: "92px", fontSize:"calc(8px + 0.4vw)"}}onClick={handleShow}> 
             Visualize
       </Button>
 

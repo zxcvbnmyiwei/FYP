@@ -12,7 +12,7 @@ function GetTopic() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const {data} = await axios.get("http://localhost:8000/topics/");
+            const {data} = await axios.get("https://cyiwei.online/topics/");
             setTopic(data);
         }
 
