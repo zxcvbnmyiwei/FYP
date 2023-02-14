@@ -29,10 +29,10 @@ SECRET_KEY = 'django-insecure-ln-^v3f$w7h3n#q56i@7)=ios_od@&mnj3dx)()b8z11n-xl^d
 DEBUG = True
 
 ALLOWED_HOSTS = [ 'localhost',
-  '127.0.0.1','52.220.90.9','https://sparkling-mochi-6953f5.netlify.app/','www.cyiwei.online','https://cyiwei.online','cyiwei.online']
+  '127.0.0.1','52.220.90.9','https://stupendous-gnome-fe5fe3.netlify.app/','www.cyiwei.online','https://cyiwei.online','cyiwei.online']
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",'https://sparkling-mochi-6953f5.netlify.app/',
+    "http://localhost:3000","https://stupendous-gnome-fe5fe3.netlify.app/",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
