@@ -54,10 +54,10 @@ def testingMulti(self, itemList: list):
     while "Exited" not in statusStr:
         sleep(0.5)
         print("LOOP")
-        statusStr = subprocess.check_output(command1,shell=True).decode("UTF-8")
+        statusStr = subprocess.check_output(command1,shell=True, stderr=subprocess.STDOUT).decode("UTF-8")
         if "Exited" in statusStr:
             print("YES!")
             command2 = f'docker logs {process}'
-            res = subprocess.check_output(command2,shell=True).decode("UTF-8")
+            res = subprocess.check_output(command2,shell=True, stderr=subprocess.STDOUT).decode("UTF-8")
             shutil.rmtree(path)
             return res
