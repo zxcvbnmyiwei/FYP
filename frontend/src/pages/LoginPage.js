@@ -17,12 +17,23 @@
 // export default LoginPage
 
 import AuthContext from '../context/AuthContext'
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import "./LoginPage.css"
+import CollectionCreateForm from "./RegisterForm"
+import axios from "axios";
 
 const LoginForm = () => {
   let {loginUser} = useContext(AuthContext)
+  const [open, setOpen] = useState(false);
+
+  const onCreate = async (values) => {
+    console.log(values)
+    const { data } = await axios.post("https://cyiwei.online/users/", values);
+    console.log(data)
+    
+  };
+
   const onFinish = (values) => {
     console.log('Success:', values);
   };
@@ -81,6 +92,18 @@ const LoginForm = () => {
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
+        <Button type="primary" danger style={{marginLeft:"16px"}} onClick={() => {
+                setOpen(true);
+            }}>
+          Register
+        </Button>
+        <CollectionCreateForm
+            open={open}
+            onCreate={onCreate}
+            onCancel={() => {
+                setOpen(false);
+            }}
+        />
       </Form.Item>
     </Form>
     </div>

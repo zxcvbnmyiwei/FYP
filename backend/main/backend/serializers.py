@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Content,Topic
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 # class RangeFieldSerializer(serializers.ModelSerializer):
 #     class Meta:

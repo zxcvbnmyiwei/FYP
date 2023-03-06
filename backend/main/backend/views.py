@@ -16,6 +16,7 @@ import os
 import uuid
 import shutil
 from django.contrib.auth.models import User
+from rest_framework import generics
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -167,3 +168,19 @@ def appendCompleted(request):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class RegisterAPI(generics.GenericAPIView):
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        json_data = json.loads(request.body)
+        try:
+            serializer = self.get_serializer(data=json_data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.save()
+            prof = Profile(user_id=user.id)
+            prof.save()
+            return HttpResponse(status = 201)
+        except:
+            return HttpResponse(status = 400)
