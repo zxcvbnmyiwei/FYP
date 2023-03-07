@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   const onCreate = async (values) => {
     console.log(values)
-    const { data } = await axios.post("https://cyiwei.online/users/", values);
+    const { data } = await axios.post("https://cyiwei.online/register/", values);
     console.log(data)
     
   };
