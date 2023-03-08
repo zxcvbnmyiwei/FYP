@@ -35,6 +35,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000","https://stupendous-gnome-fe5fe3.netlify.app/",
 ]
 
+
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_COOKIE_SECURE = False

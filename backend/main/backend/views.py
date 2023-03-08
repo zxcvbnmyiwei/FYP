@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from .models import Content,Topic,Profile
@@ -131,12 +132,33 @@ class ContentViewSet(viewsets.ModelViewSet):
     serializer_class = ContentSeralizer
     queryset = Content.objects.all()
 
+    def create(self, request, *args, **kwargs): #override the default create viewset so each content can be added into a specific topic
+        json_data = json.loads(request.body)
+        topicid = json_data["topicid"]
+        json_data.pop("topicid") # removes the additional topicid that is used to reference the topic a content is supposed to be in and generating the content using the content model
+        try:
+            serializer = self.get_serializer(data=json_data)
+            serializer.is_valid(raise_exception=True)
+            content = serializer.save()
+            topicToAdd = Topic.objects.get(id=topicid)
+            topicToAdd.content.add(content)
+            topicToAdd.save()
+            return HttpResponse(status = 201)
+        except:
+            return HttpResponse(status = 400)
+
 
 class TopicViewSet(viewsets.ModelViewSet):
     serializer_class = TopicSerializer
     def get_queryset(self):
         topic = Topic.objects.all()
         return topic
+    
+    def destroy(self, request, *args, **kwargs):
+        topic = self.get_object()
+        topic.delete()
+
+        return HttpResponse(status = 200)
 
 def profile_list(request, username):
     userid = User.objects.get(username=username).id
@@ -184,3 +206,4 @@ class RegisterAPI(generics.GenericAPIView):
             return HttpResponse(status = 201)
         except:
             return HttpResponse(status = 400)
+        

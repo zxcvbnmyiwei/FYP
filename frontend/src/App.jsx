@@ -16,6 +16,7 @@ import  Header  from './components/Header';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { AuthProvider } from './context/AuthContext';
 import TkComp from './components/TkComp';
+import AdminPage from './components/AdminPage';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
             <Route path = 'content/:contentId' element = {<AttemptQuestion />}/>
             <Route path = 'test' element = {<MultipleFiles />}/>
             <Route path = 'tk' element = {<TkComp />}/>
+            <Route path = 'admin' element = {<AdminPage />}/>
           </Route>
           <Route path = 'login' element={<LoginPage />} />
         </Routes>

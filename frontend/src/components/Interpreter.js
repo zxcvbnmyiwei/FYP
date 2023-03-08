@@ -88,9 +88,11 @@ function Interpreter(props) {
     }
   };
 
-  const onChange = React.useCallback((value, viewUpdate) => {
-    setCode(value);
-  }, []);
+
+  const onChange = (value) => {
+    setCode(value)
+    console.log(value)
+  }
 
   const getReadOnlyRanges = (targetState) => {
     var allContentRanges = [];
@@ -116,7 +118,6 @@ function Interpreter(props) {
     <div className='inner'>
       <CodeMirror
         value={code}
-        key={props.code}
         theme={dracula}
         height="40vh"
         width="50vw"
