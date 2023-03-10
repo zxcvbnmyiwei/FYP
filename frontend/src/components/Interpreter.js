@@ -20,7 +20,8 @@ function Interpreter(props) {
   // rerender intrepreter if there is a change in props.code
   useEffect(() => {
     if (props.code != null) {
-      // console.log("print props: ", props);
+      console.log("print props: ", props);
+      console.log(props.ranges)
       setCode(props.code);
     }
   }, [props.code]);
@@ -89,10 +90,11 @@ function Interpreter(props) {
   };
 
 
-  const onChange = (value) => {
-    setCode(value)
+  const onChange = React.useCallback((value, viewUpdate) => {
+    setCode(value);
     console.log(value)
-  }
+  }, []);
+
 
   const getReadOnlyRanges = (targetState) => {
     var allContentRanges = [];
@@ -118,6 +120,7 @@ function Interpreter(props) {
     <div className='inner'>
       <CodeMirror
         value={code}
+        key={props.code}
         theme={dracula}
         height="40vh"
         width="50vw"

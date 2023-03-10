@@ -3,6 +3,8 @@ import { Button, Form, Input, Modal, Radio } from 'antd';
 import CodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { python } from '@codemirror/lang-python';
+import './AdminPage.css';
+
 
 const ContentCreateForm = ({ open, onCreate, onCancel, contentToEdit }) => {
   const [form] = Form.useForm();
@@ -48,6 +50,7 @@ const ContentCreateForm = ({ open, onCreate, onCancel, contentToEdit }) => {
 
   return (
     <Modal
+      className='contentForm'
       open={open}
       title="Edit Content"
       okText="Submit"

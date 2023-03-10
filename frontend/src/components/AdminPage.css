@@ -1,0 +1,33 @@
+.viewCodeModal .ant-modal-content {
+    /* height: 600px; */
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 15vh;
+    transform: translate(-50%, -50%);
+    /* margin-top: 300px; */
+  }
+
+  .topicHeader {
+    font-size: 35px;
+    font-weight: 600;
+    color: white;
+    background-clip: text;
+    -webkit-background-clip: text;
+    margin-left: 10px;
+  }
+
+.contentForm .ant-modal-content {
+    /* height: 600px; */
+    width: 55vw;
+    min-width: 630px;
+    height: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 40vh;
+    transform: translate(-50%, -50%);
+    /* margin-top: 300px; */
+}
