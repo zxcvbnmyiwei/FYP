@@ -13,6 +13,8 @@ import ContentCreateForm from './ContentCreateForm';
 import { Button, Modal } from 'antd';
 import TopicCreateForm from './TopicCreateForm';
 import './AdminPage.css'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 
@@ -47,8 +49,9 @@ function AdminPage() {
 
   const DynamicDropdown = () => {
     return (
-      <DropdownButton id="dropdown-item-button" title="Choose Topics">
+      <DropdownButton id="dropdown-item-button" title="Choose Topic">
         {topics.map((topic) => (<Dropdown.Item as="button" onClick={() => handleClick(topic.id)}>{topic.name}</Dropdown.Item>))}
+        <Dropdown.Item as="button" style={{color: "white",fontWeight:"600", background: "red"}} onClick={handleAddTopic}>Add Topic</Dropdown.Item>
       </DropdownButton>
     );
   }
@@ -142,7 +145,7 @@ function AdminPage() {
                 <td>{content.output}</td>
                 <td style={{width:"10vw"}}>{content.ranges.map((range) => <div>Line {range.split("-")[0]} to Line {range.split("-")[1]}</div>)}</td>
                 <td style={{width:"5vw"}}><Button style={{width: "4vw", minWidth: "48px" }} onClick={() => handleEdit(content)}>Edit</Button></td>
-                <td style={{width:"4vw"}}><Button style={{background:"red",fontWeight: "900", fontSize:"15px", width: "3vw" }} onClick={() => handleDelete(content.id, topicChosen.topic)}>-</Button></td>
+                <td style={{width:"4vw"}}><Button style={{background:"red",fontWeight: "900", fontSize:"15px", width: "3vw" }} onClick={() => confirmDelete(content.id, topicChosen.topic)}>-</Button></td>
               </tr>
             ))
 
@@ -153,9 +156,48 @@ function AdminPage() {
     );
   }
 
+  const confirmDelete = (contentid, topicid) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Please note that this deletion is irreversible',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () =>  {const { data } = await axios.delete(`https://cyiwei.online/contents/${contentid}/`)
+          console.log(data)
+          setTriggerTopicFetch(!triggerTopicFetch) // sends a trigger to useeffect to refetch updated topic contents
+        }
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  }
+
+  const confirmTopicDelete = () => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Please note that this deletion is irreversible',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () =>  {const { data } = await axios.delete(`https://cyiwei.online/topics/${chosenTopic}/`)
+          console.log(data)
+          setChosenTopic(null)
+          setTriggerTopicFetch(!triggerTopicFetch) // sends a trigger to useeffect to refetch updated topic contents
+        }
+        },
+        {
+          label: 'No',
+        }
+      ]
+    });
+  }
+
 
   return (
-    <div style={{display: "flex" , flexDirection:"column"}}>
+    <div style={{display: "flex" , flexDirection:"column", justifyContent: "center"}}>
       <TopicCreateForm
         open={openTopic}
         onCreate={onCreateTopic}
@@ -165,13 +207,15 @@ function AdminPage() {
       />
       <div style={{display: "flex" , justifyContent:"center", flexDirection:"row"}}>
       <DynamicDropdown />
-      <div style={{marginLeft: "-45px", marginTop: "5px"}}>
-      <Button style={{}} onClick={handleAddTopic}>+</Button>
+      </div>
+      <div style={{display: "flex", flexDirection:"row",  marginTop: "20px",justifyContent: "center", alignItems: "center"}}>
+      <div className="topicHeader" style={{display:"flex", fontSize: "35px", color:"white", fontWeight: "700"}} >{chosenTopic !== null && topics.find((topic) => topic.id === chosenTopic).name}</div>
+      <div>
+        { chosenTopic !== null && <Button className="topicHeader" style={{background: "red",marginLeft:"8px", fontWeight:"900", fontStretch: "ultra-expanded"}} onClick={confirmTopicDelete}>-</Button>}
       </div>
       </div>
-      <div className="topicHeader" >{chosenTopic !== null && topics.find((topic) => topic.id === chosenTopic).name}</div>
-      {chosenTopic !== null && <Button style={{width:"200px"}} onClick={handleAdd}>Add New Content</Button>}
-      {chosenTopic !== null && <DynamicTable key={topics} topic={chosenTopic} />}
+      {chosenTopic !== null && <Button style={{display: "flex", width:"40px"}} onClick={handleAdd}>+</Button>}
+      {chosenTopic !== null && <DynamicTable  key={topics} topic={chosenTopic} />}
       {contentToEdit !== null && <ContentCreateForm
         open={open}
         contentToEdit={contentToEdit}
