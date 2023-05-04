@@ -13,6 +13,33 @@
 }
 
 .content-div-for-info {
-    background-color: antiquewhite;
+    border: 1px solid black;
+    /* background-image: url("./display.jpg"); */
+    background-color: #B2BEB5;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-radius: 20px;
+    height: 190px;
+}
+
+.dropdown-tkinter .btn-primary {
+    width: 11.5vw;
+    height: 4vh;
+    font-size: calc(10px + 0.25vw);
+    min-height: 39px;
+    min-width: 130px;
+}
+
+input[type=submit] {
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    width: 60px;
     border: 1px solid black;
 }
+

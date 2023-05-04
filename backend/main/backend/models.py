@@ -15,7 +15,7 @@ class Profile(models.Model):
 class Content(models.Model):
     text = models.TextField()
     code = models.TextField()
-    output = models.TextField()
+    output = models.TextField(blank=True)
     ranges = ArrayField(
        models.TextField() , default=list, blank=True
    )

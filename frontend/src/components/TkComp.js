@@ -3,6 +3,9 @@ import { Rnd } from "react-rnd";
 import {Button, Modal} from "antd"
 import Item from "antd/lib/list/Item";
 import "./TkComp.css"
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
 
 const foundation = ({width,height}) => {
     return (
@@ -85,10 +88,11 @@ if __name__ == "__main__":
 
 const style = {
     display: "flex",
-    border: "solid 1px #ddd",
+    border: "solid 1px #000",
     background: "#f0f0f0",
     flexDirection: "column",
 };
+
 
 const IndividualItem = props => {
     return (
@@ -221,6 +225,17 @@ const TkComp = () => {
         setContainerSize(curr)
     }
 
+    const DynamicDropdown = () => {
+        return (
+          <DropdownButton className="dropdown-tkinter" title="Add Components">
+            <Dropdown.Item as="button" onClick={() => handleAddType("Label")}>Add Label</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleAddType("Entry")}>Add Entry</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleAddType("Button")}>Add Button</Dropdown.Item>
+          </DropdownButton>
+        );
+      }
+    
+
     
 
     return (
@@ -230,8 +245,9 @@ const TkComp = () => {
             {
                 dimensions.map((item) => (
                     <div className="content-div-for-info">
-                    <Button style={{padding:"4px 4px"}}type="primary" danger onClick={() => handleDelete(item.index)}>X</Button>
-                    <div>Index:{item.index}
+                    <div style={{marginLeft: "5px"}}>
+                    <Button style={{background:"red",fontWeight: "900", fontSize:"15px", width: "40px", marginTop:"10px" }} onClick={() => handleDelete(item.index)}>X</Button>
+                    <div> {item.type}  {item.index}
                     <br />
                      X-pos: {item.x}
                     <br />
@@ -239,13 +255,12 @@ const TkComp = () => {
                     <br />
                      Width: {item.width}
                     <br />
-                     Height: {item.height}
-                    <br />
-                     Text: {item.text}</div>
-                    <form onSubmit={(e) => handleSubmit(e, item.index)}>
+                     Height: {item.height}</div>
+                     {item.type !== "Entry" && <form onSubmit={(e) => handleSubmit(e, item.index)}>
                         <input type="text" name="itemtext" placeholder="Enter Content"></input>
                         <input style={{padding: "1px",margin: "2px",background: "White"}}type="submit"/>
-                    </form>
+                    </form>}
+                    </div>
                     </div>
                 ))
             }
@@ -253,10 +268,8 @@ const TkComp = () => {
         </div>
         <div style={{flexDirection:"column"}}>
         <div className='div-for-add-button' style={{display:"flex"}}>
-        <Button type="primary" onClick={() => handleAddType("Button")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Button</Button>
-        <Button type="primary" onClick={() => handleAddType("Label")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Label</Button>
-        <Button type="primary" onClick={() => handleAddType("Entry")} style={{flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px", }}>Add Entry</Button>
-        <Button type="primary" style={{ background: "green", borderColor: "black", flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "92px",}} onClick={generateTk}>Generate Code</Button>
+        <DynamicDropdown/>
+        <Button type="primary" style={{ background: "green", borderColor: "black", flexDirection:"row",height:"4vh", width:"11.5vw", marginRight:"10px", fontSize: "calc(10px + 0.25vw)", minHeight: "39px", minWidth: "130px",}} onClick={generateTk}>Generate Code</Button>
         <Modal title="Generated Tkinter Code" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }} closable={false}>
         <div style={{"white-space":"pre-wrap"}}>
             {foundation(containerSize)}
