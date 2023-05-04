@@ -247,7 +247,7 @@ const TkComp = () => {
                     <div className="content-div-for-info">
                     <div style={{marginLeft: "5px"}}>
                     <Button style={{background:"red",fontWeight: "900", fontSize:"15px", width: "40px", marginTop:"10px" }} onClick={() => handleDelete(item.index)}>X</Button>
-                    <div> {item.type}  {item.index}
+                    <div className="tkcomponentinfo"> {item.type}  {item.index}
                     <br />
                      X-pos: {item.x}
                     <br />

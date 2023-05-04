@@ -43,3 +43,8 @@ input[type=submit] {
     border: 1px solid black;
 }
 
+.tkcomponentinfo {
+    font-family: 'Sigmar', cursive;
+    color: black;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
