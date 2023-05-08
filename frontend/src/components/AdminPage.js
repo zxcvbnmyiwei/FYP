@@ -209,7 +209,7 @@ function AdminPage() {
       <DynamicDropdown />
       </div>
       <div style={{display: "flex", flexDirection:"row",  marginTop: "20px",justifyContent: "center", alignItems: "center"}}>
-      <div className="topicHeader" style={{display:"flex", fontSize: "35px", color:"white", fontWeight: "700"}} >{chosenTopic !== null && topics.find((topic) => topic.id === chosenTopic).name}</div>
+      <div className="topicHeader" style={{display:"flex", fontSize: "35px", fontWeight: "700"}} >{chosenTopic !== null && topics.find((topic) => topic.id === chosenTopic).name}</div>
       <div>
         { chosenTopic !== null && <Button className="topicHeader" style={{background: "red",marginLeft:"8px", fontWeight:"900", fontStretch: "ultra-expanded"}} onClick={confirmTopicDelete}>-</Button>}
       </div>

@@ -29,17 +29,17 @@ SECRET_KEY = 'django-insecure-ln-^v3f$w7h3n#q56i@7)=ios_od@&mnj3dx)()b8z11n-xl^d
 DEBUG = True
 
 ALLOWED_HOSTS = [ 'localhost',
-  '127.0.0.1','52.220.90.9','https://stupendous-gnome-fe5fe3.netlify.app/','www.cyiwei.online','https://cyiwei.online','cyiwei.online']
+  '127.0.0.1','52.220.90.9','https://wonderful-marzipan-49276e.netlify.app/','www.cyiwei.online','https://cyiwei.online','cyiwei.online']
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000","https://stupendous-gnome-fe5fe3.netlify.app/",
+    "http://localhost:3000","https://wonderful-marzipan-49276e.netlify.app/",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_COOKIE_SECURE = False
 
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:3000','http://localhost:3000','https://63e9066310adff1462180cd0--elaborate-fudge-733cea.netlify.app']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:3000','http://localhost:3000','https://wonderful-marzipan-49276e.netlify.app/']
 
 CORS_ALLOW_HEADERS = (
     'accept',

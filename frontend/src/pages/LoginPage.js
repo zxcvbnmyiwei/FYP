@@ -29,8 +29,16 @@ const LoginForm = () => {
 
   const onCreate = async (values) => {
     console.log(values)
-    const { data } = await axios.post("https://cyiwei.online/register/", values);
-    console.log(data)
+    try {
+      const response = await axios.post("https://cyiwei.online/register/", values);
+    console.log(response.status)
+    if (response.status === 201) {
+      alert("Successfully registered!")
+      setOpen(false)
+    }  
+    } catch (err) {
+      alert("Username already exist!")
+    }
     
   };
 
@@ -58,7 +66,7 @@ const LoginForm = () => {
       autoComplete="off"
     >
       <Form.Item 
-        label="Username"
+        label={<label style={{ color: "white" }}>Username</label>}
         name="username"
         rules={[
           {
@@ -71,7 +79,7 @@ const LoginForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label={<label style={{ color: "white" }}>Password</label>}
         name="password"
         rules={[
           {

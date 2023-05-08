@@ -56,7 +56,7 @@ function Interpreter(props) {
             console.log(jobOutput.length)
             let finalJobOutput = jobOutput.replace(/\n+$/, "") // get rid of the \n at the end causing the output to have an extra space at the end
             setOutput(finalJobOutput)
-            if (finalJobOutput === props.output) {
+            if (finalJobOutput === props.output || props.output === "") {
               console.log("correct")
               let itemData = {}
               itemData.username = user.username

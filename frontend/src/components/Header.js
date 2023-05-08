@@ -7,8 +7,8 @@ const Header = () => {
     let {user, logoutUser} = useContext(AuthContext)
     console.log(user)
   return (
-    <div style={{color:"white"}} className="HeaderContainer">
-        {user && <p>Hello {user.username}!</p>}
+    <div className="HeaderContainer">
+        {user && <p className='hellotext'>Hello {user.username}!</p>}
     </div>
   )
 }

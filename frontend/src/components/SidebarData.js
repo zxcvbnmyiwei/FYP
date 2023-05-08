@@ -9,17 +9,20 @@ import axios from 'axios';
 function GetTopic() {
     const [topics, setTopic] = useState([]);
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const {data} = await axios.get("https://cyiwei.online/topics/");
+    //         setTopic(data);
+    //     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const {data} = await axios.get("https://cyiwei.online/topics/");
-            setTopic(data);
-        }
+    //     fetchData().catch(console.error)
+    // }, []);
 
-        fetchData().catch(console.error)
-    }, []);
+    // console.log(topics)
 
-    console.log(topics)
+    const fetchTopics = axios.get("https://cyiwei.online/topics/").then(setTopic(topics));
+    fetchTopics().catch(console.error)
+    console.log("TOPIC TESTUUUUUUUUUUUUUUU", topics)
 
     return topics;
 

@@ -1,0 +1,29 @@
+.homeheader {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-size: 70px;
+    font-weight: 700;
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.homediv {
+    display:flex;
+    flex-direction: column;
+
+}
+
+.logodiv {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logodiv > img {
+    max-width: 100%;
+    max-height: 100%;
+  }

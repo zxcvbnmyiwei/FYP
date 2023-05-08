@@ -3,6 +3,8 @@ import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Interpreter from './Interpreter';
+import { Button } from 'antd';
+
 
 
 function AttemptQuestion() {
@@ -32,8 +34,31 @@ function AttemptQuestion() {
 
     console.log("content: ", content)
 
+    let navigate = useNavigate();
+    const handleClick = () => {
+
+        let navigateInfo = JSON.parse(localStorage.getItem("navigateback"))
+        console.log(navigateInfo)
+        console.log(typeof(navigateInfo.type))
+        if (navigateInfo.type === 1) {
+            let path = '/topic/' + navigateInfo.topic
+            navigate(path)
+        }
+
+        else {
+            let path = '/content/'
+            navigate(path);
+        }
+        localStorage.removeItem("navigateback")
+
+    }
+
     return (
         <>
+        <div>
+        {/* <Button onClick={handleClick} variant="primary">Back</Button> */}
+        <button style={{backgroundColor: "transparent", border: "none"}}><img src="/backbutton.png" alt="image" title="Back" width="230px" height="70px" onClick={handleClick} /></button>
+        </div>
         <div className="description-header"style={{color: "white"}}>
             {content.text}
         </div>

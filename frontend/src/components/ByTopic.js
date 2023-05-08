@@ -42,6 +42,9 @@ function DisplayByTopic() {
     let navigate = useNavigate();
     const handleClick = (id) => {
         let path = '/content/' + id;
+        let navigateInfo = {type: 1, topic: topicId}
+        navigateInfo = JSON.stringify(navigateInfo)
+        localStorage.setItem("navigateback", navigateInfo) // 1 means back to topic
         navigate(path);
     }
 
@@ -88,7 +91,7 @@ function DisplayByTopic() {
     return (
 
         <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-            <div className="topicheader" style={{display:"flex", fontSize: "35px", color:"white", fontWeight: "700"}}>{topicName}</div>
+            <div className="topicheader" style={{display:"flex", fontSize: "35px" }}>{topicName}</div>
             <div style={{display:"flex", margin:"20px"}}>
             <Button onClick={handleCompletedClick}>{questionState}</Button>
             </div>
@@ -142,6 +145,9 @@ function DisplayByContent() {
     let navigate = useNavigate();
     const handleClick = (id) => {
         let path = '/content/' + id;
+        let navigateInfo = {type: 2}
+        navigateInfo = JSON.stringify(navigateInfo)
+        localStorage.setItem("navigateback", navigateInfo) // 2 means back to content page
         navigate(path);
     }
 
