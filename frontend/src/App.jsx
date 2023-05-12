@@ -7,7 +7,7 @@ import Interpreter from './components/Interpreter';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {DisplaySection,DisplayContent} from './components/Topic';
-import {DisplayByTopic,DisplayByContent} from './components/ByTopic'
+import {DisplayByTopic,DisplayByContent} from './components/ContentList'
 import { AttemptQuestion } from './components/Content';
 import MultipleFiles from './components/MultipleFiles';
 import Home from './pages/Home'

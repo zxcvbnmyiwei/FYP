@@ -6,7 +6,7 @@ import MyComp from './pyComponent';
 import axios from 'axios';
 
 
-function Example(props) {
+function VisualizerPopOut(props) {
   const [show, setShow] = useState(false);
   const [output, setOutput] = useState(null);
   const [jobId, setJobId] = useState(null);
@@ -111,4 +111,4 @@ print(trace)
   );
 }
 
-export default Example;
+export default VisualizerPopOut;

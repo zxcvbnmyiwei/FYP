@@ -12,16 +12,15 @@ const foundation = ({width,height}) => {
 `import tkinter as tk
 class App:
     def __init__(self, root):
-        #setting title
+        #Title
         root.title("undefined")
-        #setting window size
+        #Dimensions of Window
         width=${width}
         height=${height}
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
         root.geometry(alignstr)
-        root.resizable(width=False, height=False)
 
 `
     )
@@ -32,8 +31,6 @@ const tkItem = (index,x,y,width,height,text,itemtype) => {
             return (
                 `
                         ${index}=tk.Button(root)
-                        ${index}["bg"] = "#f0f0f0"
-                        ${index}["fg"] = "#000000"
                         ${index}["justify"] = "center"
                         ${index}["text"] = "${text}"
                         ${index}.place(x=${x},y=${y},width=${width},height=${height})
@@ -44,7 +41,6 @@ const tkItem = (index,x,y,width,height,text,itemtype) => {
             return (
                 `
                         ${index}=tk.Label(root)
-                        ${index}["fg"] = "#333333"
                         ${index}["justify"] = "center"
                         ${index}["text"] = "${text}"
                         ${index}.place(x=${x},y=${y},width=${width},height=${height})
@@ -55,7 +51,6 @@ const tkItem = (index,x,y,width,height,text,itemtype) => {
                 `
                         ${index}=tk.Entry(root)
                         ${index}["borderwidth"] = "1px"
-                        ${index}["fg"] = "#333333"
                         ${index}["justify"] = "center"
                         ${index}["text"] = "${text}"
                         ${index}.place(x=${x},y=${y},width=${width},height=${height})

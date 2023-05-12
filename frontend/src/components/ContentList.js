@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ReadonlyComponent from './ReadonlyComponent';
-import './ByTopic.css'
+import './ContentList.css'
 import ReactPaginate from 'react-paginate';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/AuthContext'

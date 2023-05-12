@@ -5,7 +5,6 @@ import { python } from '@codemirror/lang-python';
 import React, { useState, useEffect } from 'react';
 import readOnlyRangesExtension from 'codemirror-readonly-ranges'
 import MyComp from './pyComponent';
-import Example from './Test';
 import Button from 'react-bootstrap/Button';
 import './MultipleFileIDE.css'
 

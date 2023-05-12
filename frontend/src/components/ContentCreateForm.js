@@ -27,21 +27,6 @@ const ContentCreateForm = ({ open, onCreate, onCancel, contentToEdit }) => {
     }
   }, [contentToEdit.code]);
 
-  // const getReadOnlyRanges = (targetState) => {
-  //   console.log(contentToEdit.ranges)
-  //   var allContentRanges = [];
-  //   const contentRangesDetails = contentToEdit.ranges;
-  //   Object.entries(contentRangesDetails).map(([key, value]) => {
-  //     const range = value.split("-") // splits for example 0-1 to 0 and 1 to get the "from" and the "to"
-  //     var contentRanges = {};
-  //     contentRanges.from = targetState.doc.line(range[0]).from;
-  //     contentRanges.to = targetState.doc.line(range[1]).to;
-  //     allContentRanges.push(contentRanges);
-  //   })
-  //   console.log("allContentRanges: ", allContentRanges)
-  //   return (allContentRanges);
-  // }
-
   const onChange = React.useCallback((value, viewUpdate) => {
     setCode(value);
     console.log(value)

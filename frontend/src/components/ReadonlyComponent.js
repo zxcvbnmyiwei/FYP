@@ -4,6 +4,7 @@ import { python } from '@codemirror/lang-python';
 import React, {useState,useEffect} from 'react';
 import './ReadonlyComponent.css';
 
+// This function creates a IDE that is strictly readable only
 function ReadonlyComponent(props) {
     const [code, setCode] = useState('');
 

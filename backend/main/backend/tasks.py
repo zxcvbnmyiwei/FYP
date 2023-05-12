@@ -8,6 +8,8 @@ import shutil
 import subprocess
 import contextlib
 
+
+# single file executing with docker
 @shared_task(bind=True)
 def testing(self, code:str):
     print(code)
@@ -36,6 +38,8 @@ def testing(self, code:str):
             return res
         
 
+
+# multi file executing with docker
 @shared_task(bind=True)
 def testingMulti(self, itemList: list):
     id = str(uuid.uuid4())

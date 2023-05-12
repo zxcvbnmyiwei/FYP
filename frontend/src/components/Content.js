@@ -6,8 +6,8 @@ import Interpreter from './Interpreter';
 import { Button } from 'antd';
 
 
-
-function AttemptQuestion() {
+// Page for Attempting Each Content
+function AttemptQuestion() { 
     const { contentId } = useParams();
     const [content,setContent] = useState([])
     const [ranges,setRanges] = useState([])

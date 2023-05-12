@@ -4,7 +4,7 @@ import './index.css';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css'
-import './components/Test.css'
+import './components/VisualizerPopOut.css'
 import './components/Interpreter.css';
 import './components/Content.css'
 import 'antd/dist/antd.css';

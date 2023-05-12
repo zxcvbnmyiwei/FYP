@@ -5,7 +5,7 @@ import { python } from '@codemirror/lang-python';
 import React, { useState, useEffect, useContext } from 'react';
 import readOnlyRangesExtension from 'codemirror-readonly-ranges'
 import MyComp from './pyComponent';
-import Example from './Test';
+import VisualizerPopOut from './VisualizerPopOut';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../context/AuthContext';
 
@@ -132,7 +132,7 @@ function Interpreter(props) {
       <br />
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", width: "50vw", minWidth: "500px" }}>
         <Button className="submitButton" onClick={handleSubmit} variant="primary">Submit</Button>
-        <Example code={code}/>
+        <VisualizerPopOut code={code}/>
       </div>
       <textarea style={{ height: "40vh", width: "50vw", minWidth: "600px" }} rows="10" class="form-control" readOnly={true} key={output} placeholder="Output will be displayed here.">{output}</textarea>
     </div>

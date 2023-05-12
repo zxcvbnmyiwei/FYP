@@ -22,7 +22,6 @@ function GetTopic() {
 
     const fetchTopics = axios.get("https://cyiwei.online/topics/").then(setTopic(topics));
     fetchTopics().catch(console.error)
-    console.log("TOPIC TESTUUUUUUUUUUUUUUU", topics)
 
     return topics;
 
